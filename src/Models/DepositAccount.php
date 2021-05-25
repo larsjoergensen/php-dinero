@@ -11,4 +11,5 @@ class DepositAccount extends Model
 
     public $AccountNumber;
     public $Name;
+    public $IsHidden;
 }

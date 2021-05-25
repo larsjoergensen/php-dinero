@@ -8,7 +8,7 @@ use LasseRafn\Dinero\Utils\RequestBuilder;
 class DepositAccountRequestBuilder extends RequestBuilder
 {
 	public function __construct( Builder $builder ) {
-		$this->parameters['fields'] = 'Name,AccountNumber';
+		$this->parameters['fields'] = 'Name,AccountNumber,IsHidden';
 
 		parent::__construct( $builder );
 	}
