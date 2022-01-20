@@ -8,10 +8,10 @@ class Request
 {
     public $curl;
 
-    protected $baseUri = 'https://api.dinero.dk/v1';
+    protected $baseUri = 'https://api.dinero.dk/';
     protected $authUri = 'https://authz.dinero.dk/dineroapi/oauth/token';
 
-    public function __construct($clientId = '', $clientSecret = '', $token = null, $org = null, $clientConfig = [])
+    public function __construct($clientId = '', $clientSecret = '', $token = null, $org = null, $clientConfig = [], $apiVersion = 'v1')
     {
         $encodedClientIdAndSecret = base64_encode("{$clientId}:{$clientSecret}");
 
@@ -26,7 +26,7 @@ class Request
         }
 
         $this->curl = new Client(array_merge_recursive([
-            'base_uri' => $this->baseUri.($org !== null ? "/{$org}/" : ''),
+            'base_uri' => $this->baseUri.$apiVersion.($org !== null ? "/{$org}/" : ''),
             'headers'  => $headers,
         ], $clientConfig));
     }
