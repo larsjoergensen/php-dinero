@@ -29,6 +29,7 @@ use LasseRafn\Dinero\Utils\Request;
 class Dinero
 {
     protected $request;
+    protected $requestV2;
 
     private $clientId;
     private $clientSecret;
@@ -43,7 +44,8 @@ class Dinero
         $this->authToken = $token;
         $this->org = $org;
 
-        $this->request = new Request($clientId, $clientSecret, $this->authToken, $this->org, $clientConfig);
+        $this->request = new Request($clientId, $clientSecret, $this->authToken, $this->org, $clientConfig, 'v1');
+        $this->requestV2 = new Request($clientId, $clientSecret, $this->authToken, $this->org, $clientConfig, 'v2');
     }
 
     public function setAuth($token, $org = null)
@@ -51,7 +53,8 @@ class Dinero
         $this->authToken = $token;
         $this->org = $org;
 
-        $this->request = new Request($this->clientId, $this->clientSecret, $this->authToken, $this->org);
+        $this->request = new Request($this->clientId, $this->clientSecret, $this->authToken, $this->org, $clientConfig = [], 'v1');
+        $this->requestV2 = new Request($this->clientId, $this->clientSecret, $this->authToken, $this->org, $clientConfig = [], 'v2');
     }
 
     public function getAuthToken()
@@ -103,7 +106,7 @@ class Dinero
 
 	public function paymentsForInvoice($invoiceId)
 	{
-		return new PaymentRequestBuilder(new PaymentBuilder($this->request, "invoices/{$invoiceId}/payments"));
+		return new PaymentRequestBuilder(new PaymentBuilder($this->requestV2, "invoices/{$invoiceId}/payments"));
 	}
 
 	public function bookInvoice($invoiceId)
