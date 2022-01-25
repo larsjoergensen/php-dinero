@@ -106,6 +106,11 @@ class Dinero
 
 	public function paymentsForInvoice($invoiceId)
 	{
+		return new PaymentRequestBuilder(new PaymentBuilder($this->request, "invoices/{$invoiceId}/payments"));
+	}
+
+    public function paymentsForInvoiceV2($invoiceId)
+	{
 		return new PaymentRequestBuilder(new PaymentBuilder($this->requestV2, "invoices/{$invoiceId}/payments"));
 	}
 
